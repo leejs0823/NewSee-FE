@@ -5,7 +5,7 @@ import CommonButton from "../../CommonButton";
 import { LevelType } from "@/types/level";
 import LevelIcon from "@assets/icons/common/level.svg?react";
 import { useTheme } from "styled-components";
-import { useLevel } from "@/api/user/hooks/useLevel";
+import { usePostLevel } from "@/api/user/hooks/useLevel";
 
 interface LevelSelectModalProps {
   closeModal: () => void;
@@ -13,7 +13,7 @@ interface LevelSelectModalProps {
 
 const LevelSelectModal = ({ closeModal }: LevelSelectModalProps) => {
   const [selectedLevel, setSelectedLevel] = useState<LevelType>(LevelType.HIGH);
-  const { mutate: selectLevel } = useLevel(); // 레벨 설정 API 훅
+  const { mutate: selectLevel } = usePostLevel(); // 레벨 설정 API 훅
   const theme = useTheme();
 
   const handleSelect = (level: LevelType) => {

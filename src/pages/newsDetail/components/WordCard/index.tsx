@@ -28,14 +28,14 @@ const AddButton = ({ wordId }: { wordId: number }) => {
       onSuccess: () => {
         openModal("check", {
           title: "단어 추가 완료",
-          message: "단어장이 성공적으로 저장되었습니다.",
+          message: <>단어장이 성공적으로 저장되었습니다.</>,
           onClose: () => {},
         });
       },
       onError: () => {
         openModal("check", {
           title: "오류 발생",
-          message: "단어 추가에 실패했어요. 다시 시도해 주세요.",
+          message: <>단어 추가에 실패했어요. 다시 시도해 주세요.</>,
           onClose: () => {},
         });
       },

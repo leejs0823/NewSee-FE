@@ -51,7 +51,7 @@ export const NewsDetail = () => {
     if (notFound) {
       openModal("check", {
         title: "Not Found",
-        message: "해당 뉴스 기사를 찾을 수 없습니다.",
+        message: <>해당 뉴스 기사를 찾을 수 없습니다.</>,
         onClose: () => navigate(-1),
       });
     }

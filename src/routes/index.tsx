@@ -9,7 +9,7 @@ import {
   KakaoLogin,
   NewsDetail,
   Bookmark,
-  Setting,
+  LevelSetting,
 } from "@pages/index";
 import { ProtectedRoute } from "@/components/common/ProtectedRoute";
 
@@ -53,12 +53,12 @@ export const router = createBrowserRouter([
       },
       { path: "login", element: <Login /> },
       {
-        path: "setting",
+        path: "levelSetting",
         element: <ProtectedRoute />,
         children: [
           {
             path: "",
-            element: <Setting />,
+            element: <LevelSetting />,
           },
         ],
       },

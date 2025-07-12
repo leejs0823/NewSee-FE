@@ -4,7 +4,7 @@ import { useModal } from "@/hooks/common/useModal";
 
 interface CheckModalProps {
   title?: string;
-  message?: string;
+  message?: React.ReactNode;
   onClose: () => void;
 }
 

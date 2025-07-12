@@ -8,7 +8,7 @@ import HelpIcon from "@assets/icons/common/help.svg?react";
 export const Mypage = () => {
   const navigate = useNavigate();
   const handleGoToLevelSetting = () => {
-    navigate("/setting");
+    navigate("/levelSetting");
   };
 
   const handleGoToBookmark = () => {

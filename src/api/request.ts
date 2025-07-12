@@ -102,9 +102,10 @@ export const applyInterceptors = (instance: AxiosInstance): void => {
       const originalRequest = error.config;
 
       if (
-        error.response?.status === 401 &&
-        !originalRequest._retry &&
-        useUserStore.getState().refreshToken
+        error.response?.status === 401 ||
+        (error.response?.status === 403 &&
+          !originalRequest._retry &&
+          useUserStore.getState().refreshToken)
       ) {
         originalRequest._retry = true;
 

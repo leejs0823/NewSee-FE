@@ -13,3 +13,14 @@ export const postSelectLevel = async (level: LevelType) => {
   }
   return response;
 };
+
+export const patchSelectLevel = async (level: LevelType) => {
+  const response = await sendRequest(userInstance, "PATCH", "/level", {
+    level: LevelTypeToKorean[level],
+  });
+
+  if (!response.success) {
+    throw new Error(response.message || "문해력 수준 수정 실패");
+  }
+  return response;
+};
