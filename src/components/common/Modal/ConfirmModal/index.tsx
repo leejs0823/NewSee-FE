@@ -5,6 +5,8 @@ interface ConfirmModalProps {
   message?: string;
   onConfirm: () => void;
   onClose: () => void;
+  confirmText?: string;
+  cancelText?: string;
 }
 
 const ConfirmModal = ({
@@ -12,14 +14,16 @@ const ConfirmModal = ({
   message,
   onConfirm,
   onClose,
+  confirmText = "확인",
+  cancelText = "취소",
 }: ConfirmModalProps) => {
   return (
     <>
       <S.ModalTitle>{title}</S.ModalTitle>
       <S.ModalText>{message}</S.ModalText>
       <S.ModalButtonGroup>
-        <CommonButton title="취소" variant="disabled" onClick={onClose} />
-        <CommonButton title="확인" variant="blue" onClick={onConfirm} />
+        <CommonButton title={cancelText} variant="disabled" onClick={onClose} />
+        <CommonButton title={confirmText} variant="blue" onClick={onConfirm} />
       </S.ModalButtonGroup>
     </>
   );

@@ -12,8 +12,13 @@ const TopBar = ({ title }: TopBarProps) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1);
+    if (location.pathname === "/login") {
+      navigate("/", { replace: true });
+    } else {
+      navigate(-1);
+    }
   };
+
   return (
     <S.Container>
       <S.ArrowContainer onClick={handleBack}>

@@ -98,8 +98,43 @@ export const applyInterceptors = (instance: AxiosInstance): void => {
 
   instance.interceptors.response.use(
     (response) => response,
-    (error) => {
-      console.error("🚨 Response Interceptor Error:", error?.response);
+    async (error) => {
+      const originalRequest = error.config;
+
+      if (
+        error.response?.status === 401 &&
+        !originalRequest._retry &&
+        useUserStore.getState().refreshToken
+      ) {
+        originalRequest._retry = true;
+
+        try {
+          const refreshToken = useUserStore.getState().refreshToken;
+
+          const res = await axios.post(
+            "/api/user/refresh",
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            }
+          );
+
+          const newAccessToken = res.data.result.accessToken;
+          useUserStore.getState().setAccessToken(newAccessToken);
+
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return instance(originalRequest);
+        } catch (refreshError) {
+          console.error("🔁 AccessToken 갱신 실패", refreshError);
+
+          useUserStore.getState().logout?.();
+          window.location.replace("/login");
+          return Promise.reject(refreshError);
+        }
+      }
+
       return Promise.reject(error);
     }
   );

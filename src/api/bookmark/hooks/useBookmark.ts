@@ -1,12 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { getBookmarkList } from "../bookmark";
 import { useBookmarkStore } from "@/stores/bookmark";
+import { withDelayedGlobalLoading } from "@/utils/delayedGlobalLoading";
 
 export const useBookmark = () => {
   const setBookmarkList = useBookmarkStore((state) => state.setBookmarks);
 
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: getBookmarkList,
+    mutationFn: () => withDelayedGlobalLoading(getBookmarkList()),
     onSuccess: (data) => {
       setBookmarkList(data);
     },

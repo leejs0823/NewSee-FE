@@ -18,6 +18,8 @@ const ModalRoot = () => {
             message={props.message}
             onConfirm={props.onConfirm}
             onClose={props.onClose}
+            confirmText={props.confirmText}
+            cancelText={props.cancelText}
           />
         );
       case "check":

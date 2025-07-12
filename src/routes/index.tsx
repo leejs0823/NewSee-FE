@@ -11,6 +11,7 @@ import {
   Bookmark,
   Setting,
 } from "@pages/index";
+import { ProtectedRoute } from "@/components/common/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -18,13 +19,49 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "words", element: <Words /> },
-      { path: "mypage", element: <Mypage /> },
+      {
+        path: "words",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "",
+            element: <Words />,
+          },
+        ],
+      },
+      {
+        path: "mypage",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "",
+            element: <Mypage />,
+          },
+        ],
+      },
       { path: "news", element: <News /> },
       { path: "news/:newsId", element: <NewsDetail /> },
-      { path: "bookmark", element: <Bookmark /> },
+      {
+        path: "bookmark",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "",
+            element: <Bookmark />,
+          },
+        ],
+      },
       { path: "login", element: <Login /> },
-      { path: "setting", element: <Setting /> },
+      {
+        path: "setting",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "",
+            element: <Setting />,
+          },
+        ],
+      },
       { path: "login/oauth2/code/kakao", element: <KakaoLogin /> },
     ],
   },

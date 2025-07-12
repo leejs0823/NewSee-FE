@@ -6,13 +6,11 @@ import { formatDateToDot } from "@/utils/format";
 import { useMyProfile } from "@/api/user/hooks/useMyProfile";
 
 export const MyProfile = () => {
-  const { isLoading } = useMyProfile();
+  useMyProfile();
   const name = useUserStore((state) => state.name);
   const profileImage = useUserStore((state) => state.profileImage);
   const joinDate = useUserStore((state) => state.joinDate);
   const savedWordCount = useUserStore((state) => state.savedWordCount);
-
-  if (isLoading) return <div>불러오는 중...</div>;
 
   return (
     <S.ProfileCard>
