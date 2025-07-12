@@ -3,20 +3,9 @@ import * as path from "path";
 import svgr from "vite-plugin-svgr";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { ViteFaviconsPlugin } from "vite-plugin-favicon";
 
 export default defineConfig({
-  plugins: [
-    tsconfigPaths(),
-    react(),
-    svgr(),
-    ViteFaviconsPlugin({
-      logo: "./public/logo.svg",
-      favicons: {
-        path: "/",
-      },
-    }),
-  ],
+  plugins: [tsconfigPaths(), react(), svgr()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
