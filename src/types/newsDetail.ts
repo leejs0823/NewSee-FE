@@ -10,7 +10,6 @@ export type NewsDetailType = {
   imageUrl: string;
   url: string;
   userLevel: LevelType;
-  originalContent: string;
   transformedContent: string;
   summary: string;
   keywords: KeywordType[];
@@ -21,5 +20,6 @@ export type KeywordType = {
   wordId: number;
   term: string;
   description: string;
-  source: string;
+  category?: NewsCategoryType;
+  date?: Date;
 };

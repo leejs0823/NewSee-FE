@@ -10,10 +10,12 @@ import { useState, useMemo } from "react";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { useUserStore } from "@/stores/user";
 import { LevelTypeToKorean } from "@/utils/level";
+import { WordCardModal } from "@/components/common/Modal/WordCardModal";
 
 export const Words = () => {
   const theme = useTheme();
-
+  const [showWordModal, setShowWordModal] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedTag, setSelectedTag] = useState("전체");
   const [searchKeyword, setSearchKeyword] = useState("");
 
@@ -33,6 +35,11 @@ export const Words = () => {
   }, [words, selectedTag, searchKeyword]);
 
   if (isLoading) return <div>불러오는 중...</div>;
+
+  const handleWordClick = (index: number) => {
+    setSelectedIndex(index);
+    setShowWordModal(true);
+  };
 
   const handleSearch = (keyword: string) => {
     setSearchKeyword(keyword);
@@ -75,11 +82,22 @@ export const Words = () => {
         ) : filteredWords.length === 0 ? (
           <S.EmptyMessage>조건에 맞는 단어가 없습니다.</S.EmptyMessage>
         ) : (
-          filteredWords.map((word) => (
-            <BigWordCard key={word.savedWordId} word={word} />
+          filteredWords.map((word, index) => (
+            <BigWordCard
+              key={word.savedWordId}
+              word={word}
+              onClick={() => handleWordClick(index)}
+            />
           ))
         )}
       </S.WordCardList>
+      {showWordModal && (
+        <WordCardModal
+          words={filteredWords}
+          initialIndex={selectedIndex}
+          onClose={() => setShowWordModal(false)}
+        />
+      )}
     </S.Container>
   );
 };

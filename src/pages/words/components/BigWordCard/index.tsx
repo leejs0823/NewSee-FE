@@ -10,8 +10,9 @@ import { formatDateToDot } from "@/utils/format";
 
 interface BigWordCardProps {
   word: WordType;
+  onClick: () => void;
 }
-export const BigWordCard = ({ word }: BigWordCardProps) => {
+export const BigWordCard = ({ word, onClick }: BigWordCardProps) => {
   const theme = useTheme();
   const { openModal, closeModal } = useModalStore();
   const { mutate: deleteWordMutate } = useDeleteWord();
@@ -31,7 +32,7 @@ export const BigWordCard = ({ word }: BigWordCardProps) => {
   };
 
   return (
-    <S.Container>
+    <S.Container onClick={onClick}>
       <S.TermContainer>
         <S.Term>{word.term}</S.Term>
         <S.Description>{word.description}</S.Description>
@@ -46,7 +47,14 @@ export const BigWordCard = ({ word }: BigWordCardProps) => {
           </S.Caption>
         </S.CaptionSection>
       </S.TermContainer>
-      <DeleteIcon onClick={handleDelete} width={22} height={22} />
+      <S.IconWrapper
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete();
+        }}
+      >
+        <DeleteIcon />
+      </S.IconWrapper>
     </S.Container>
   );
 };

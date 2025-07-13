@@ -14,9 +14,9 @@ export const Container = styled.div`
   overflow: hidden;
   justify-content: space-between;
   align-items: flex-end;
+  cursor: pointer;
 `;
 
-// 말줄임 처리 스타일 추가
 export const Term = styled.h4`
   ${({ theme }) => theme.fonts.Body2B};
   color: ${({ theme }) => theme.colors.text.primary};

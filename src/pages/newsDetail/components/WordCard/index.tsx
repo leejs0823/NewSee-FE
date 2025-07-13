@@ -5,17 +5,20 @@ import { useModal } from "@/hooks/common/useModal";
 
 interface WordCardProps {
   keyword: KeywordType;
+  onClick?: () => void;
 }
 
-export const WordCard = ({ keyword }: WordCardProps) => {
+export const WordCard = ({ keyword, onClick }: WordCardProps) => {
   return (
-    <S.Container>
-      <S.WordContainer>
-        <S.Term>{keyword.term}</S.Term>
-        <S.Description>{keyword.description}</S.Description>
-      </S.WordContainer>
-      <AddButton wordId={keyword.wordId} />
-    </S.Container>
+    <>
+      <S.Container onClick={onClick}>
+        <S.WordContainer>
+          <S.Term>{keyword.term}</S.Term>
+          <S.Description>{keyword.description}</S.Description>
+        </S.WordContainer>
+        <AddButton wordId={keyword.wordId} />
+      </S.Container>
+    </>
   );
 };
 
@@ -41,5 +44,14 @@ const AddButton = ({ wordId }: { wordId: number }) => {
       },
     });
   };
-  return <S.WordAddButton onClick={handleAddWord}>단어장 추가</S.WordAddButton>;
+  return (
+    <S.WordAddButton
+      onClick={(e) => {
+        e.stopPropagation();
+        handleAddWord();
+      }}
+    >
+      단어장 추가
+    </S.WordAddButton>
+  );
 };

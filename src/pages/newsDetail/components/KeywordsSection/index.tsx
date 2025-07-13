@@ -2,16 +2,26 @@ import * as S from "./index.styles";
 import { useNewsStore } from "@/stores/news";
 import WordsIcon from "@assets/icons/common/words.svg?react";
 import { useTheme } from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WordCard } from "../index";
+import { WordCardModal } from "@/components/common/Modal/WordCardModal";
 
 export const KeywordsSection = () => {
   const navigate = useNavigate();
   const news = useNewsStore((state) => state.news);
   const theme = useTheme();
 
+  const [showWordModal, setShowWordModal] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   const handleGotoWords = () => {
     navigate("/words");
+  };
+
+  const handleWordClick = (index: number) => {
+    setSelectedIndex(index);
+    setShowWordModal(true);
   };
   return (
     <S.Container>
@@ -31,9 +41,23 @@ export const KeywordsSection = () => {
       </S.TitleNInfoContainer>
       <S.WordsContainer>
         {news?.keywords.map((keyword, index) => (
-          <WordCard key={index} keyword={keyword} />
+          <WordCard
+            key={index}
+            keyword={keyword}
+            onClick={() => handleWordClick(index)}
+          />
         ))}
       </S.WordsContainer>
+      {showWordModal && news?.keywords && (
+        <WordCardModal
+          words={news.keywords.map((keyword) => ({
+            ...keyword,
+            category: news.category,
+          }))}
+          initialIndex={selectedIndex}
+          onClose={() => setShowWordModal(false)}
+        />
+      )}
     </S.Container>
   );
 };
