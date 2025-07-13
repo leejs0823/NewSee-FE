@@ -14,8 +14,8 @@ export const LogoutButton = () => {
       message: `지금 로그아웃하시면 뉴스 저장과 단어장 기능이 제공되지 않습니다.`,
       onConfirm: () => {
         closeModal();
-        logout();
-        navigate("/");
+        navigate("/", { replace: true });
+        setTimeout(() => logout(), 100);
       },
       onClose: () => {
         closeModal();

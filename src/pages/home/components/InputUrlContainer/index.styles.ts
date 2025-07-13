@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   align-items: flex-start;
   width: 100%;
+  gap: 10px;
 `;
 
 export const Input = styled.input`

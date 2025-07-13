@@ -60,7 +60,7 @@ export const Caption = styled.p`
 
 export const ColorText = styled.p`
   ${({ theme }) => theme.fonts.Body1B}
-  color: ${({ theme }) => theme.colors.text.green};
+  color: ${({ theme }) => theme.colors.text.black};
 `;
 
 export const CategoryList = styled.div`

@@ -1,6 +1,7 @@
 import { sendRequest } from "../request";
 import { wordsInstance } from "../instance";
 import type { WordType } from "@/types/word";
+import { mapToNewsCategory } from "@/utils/category";
 
 interface WordsResult {
   totalCount: number;
@@ -18,7 +19,15 @@ export const getMyWords = async (): Promise<WordsResult> => {
     throw new Error(response.message || "단어장 불러오기 실패");
   }
 
-  return response.result;
+  const mappedWords = response.result.words.map((word) => ({
+    ...word,
+    category: mapToNewsCategory(word.category),
+  }));
+
+  return {
+    ...response.result,
+    words: mappedWords,
+  };
 };
 
 export const postAddWord = async (wordId: number) => {

@@ -36,6 +36,7 @@ export const HeadDescriptionText = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  height: 20px;
   p {
     ${({ theme }) => theme.fonts.Caption};
   }

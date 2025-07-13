@@ -125,7 +125,11 @@ export const applyInterceptors = (instance: AxiosInstance): void => {
           const newAccessToken = res.data.result.accessToken;
           useUserStore.getState().setAccessToken(newAccessToken);
 
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          originalRequest.headers = {
+            ...originalRequest.headers,
+            Authorization: `Bearer ${newAccessToken}`,
+          };
+
           return instance(originalRequest);
         } catch (refreshError) {
           console.error("🔁 AccessToken 갱신 실패", refreshError);

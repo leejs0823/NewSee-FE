@@ -60,29 +60,15 @@ export const loginWithKakaoToken = async (accessToken: string) => {
 };
 
 export const fetchMyProfile = async () => {
-  try {
-    const response = await sendRequest<ProfileResult>(
-      userInstance,
-      "GET",
-      "/profile"
-    );
+  const response = await sendRequest<ProfileResult>(
+    userInstance,
+    "GET",
+    "/profile"
+  );
 
-    if (!response.success) {
-      throw new Error(response.message || "프로필 조회 실패");
-    }
-
-    return response.result;
-  } catch (error: any) {
-    const status = error?.response?.status;
-
-    if (status === 401 || status === 403) {
-      // 토큰이 유효하지 않거나 로그인이 안되어 있을 시 로그인 페이지로 강제 이동
-      if (typeof window !== "undefined") {
-        window.location.replace("/login");
-      }
-      throw new Error(`${status} Redirected to login`);
-    }
-
-    throw new Error("프로필 조회 실패");
+  if (!response.success) {
+    throw new Error(response.message || "프로필 조회 실패");
   }
+
+  return response.result;
 };

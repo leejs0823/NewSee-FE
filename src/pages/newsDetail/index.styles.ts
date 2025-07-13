@@ -45,6 +45,7 @@ export const Title = styled.h1`
   ${({ theme }) => theme.fonts.Head2};
   text-align: left;
   margin-bottom: 10px;
+  word-break: keep-all;
 `;
 
 export const ShareButton = styled.button`

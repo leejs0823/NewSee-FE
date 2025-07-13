@@ -4,13 +4,14 @@ import { LevelTag } from "@/components/common/LevelTag";
 import ProfileDefaultImage from "@assets/images/profileImage.png";
 import { formatDateToDot } from "@/utils/format";
 import { useMyProfile } from "@/api/user/hooks/useMyProfile";
+import { useWordsStore } from "@/stores/words";
 
 export const MyProfile = () => {
   useMyProfile();
   const name = useUserStore((state) => state.name);
   const profileImage = useUserStore((state) => state.profileImage);
   const joinDate = useUserStore((state) => state.joinDate);
-  const savedWordCount = useUserStore((state) => state.savedWordCount);
+  const savedWordCount = useWordsStore((state) => state.wordCount);
 
   return (
     <S.ProfileCard>

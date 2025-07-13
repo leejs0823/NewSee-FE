@@ -68,7 +68,7 @@ export const useUserStore = create<UserState>()(
           email: null,
           profileImage: null,
           joinDate: null,
-          savedWordCount: null,
+          savedWordCount: 0,
         });
         useBookmarkStore.getState().reset();
       },
