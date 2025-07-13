@@ -14,7 +14,6 @@ import {
   NewsContentSection,
   NewsFooter,
 } from "./components";
-import { useBookmarkStore } from "@/stores/bookmark";
 import { useModalStore } from "@/stores/modal";
 
 export const NewsDetail = () => {
@@ -66,9 +65,7 @@ export const NewsDetail = () => {
     }
   }, [loading]);
 
-  const bookmarkIds = useBookmarkStore((state) => state.bookmarkIds);
   const newsExists = news && news.newsId === id;
-  const isBookmarked = newsExists ? bookmarkIds.includes(news.newsId) : false;
 
   if (!newsExists) return null;
 
@@ -83,7 +80,7 @@ export const NewsDetail = () => {
               <p>{news.source}</p>
               <p>{getTimeAgo(news.time)}</p>
             </S.NewsInfo>
-            {isBookmarked !== undefined && <BookmarkButton newsId={id} />}
+            <BookmarkButton news={news} />
           </S.NewsInfoContainer>
           <S.Title>{news.title}</S.Title>
           <S.LevelNShare>

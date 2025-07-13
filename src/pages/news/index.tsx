@@ -3,20 +3,23 @@ import { LevelTag } from "@/components/common/LevelTag";
 import { SearchBar } from "@/components/common/SearchBar";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { NEWS_CATEGORY_TAGS } from "@/types/category";
-import { useState } from "react";
-import { mockNewsData } from "./data/newsList";
+import { useState, useEffect } from "react";
 import type { NewsListItemType } from "@/types/newsList";
 import { NewsItem } from "./components";
 import { useNewsListStore } from "@/stores/newsList";
+import { useNewsList } from "@/api/news/hooks/useNewsList";
+import { useBookmark } from "@/api/bookmark/hooks/useBookmark";
 
 export const News = () => {
-  const [selectedTag, setSelectedTag] = useState("전체");
+  const { fetchBookmarks } = useBookmark();
 
-  // 테스트
-  const setNewsList = useNewsListStore((state) => state.setNewsList);
-  setNewsList(mockNewsData);
+  const [selectedTag, setSelectedTag] = useState("전체");
+  useEffect(() => {
+    fetchBookmarks();
+  }, []);
+  useNewsList();
+
   const newsList = useNewsListStore((state) => state.newsList);
-  // 삭제 예정
 
   const filteredNews: NewsListItemType[] =
     selectedTag === "전체"

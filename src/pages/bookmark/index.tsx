@@ -9,7 +9,7 @@ import TopBar from "@components/common/TopBar";
 import type { NewsListItemType } from "@/types/newsList";
 export const Bookmark = () => {
   const [selectedTag, setSelectedTag] = useState("전체");
-  const { fetchBookmarks, isPending } = useBookmark();
+  const { fetchBookmarks } = useBookmark();
 
   const bookmarkItems = useBookmarkStore((state) => state.bookmarkItems);
 
@@ -38,9 +38,7 @@ export const Bookmark = () => {
         </S.CategoryList>
       </S.ContentArea>
       <S.BodySection>
-        {isPending ? (
-          <div>불러오는 중...</div>
-        ) : filteredNews.length === 0 ? (
+        {filteredNews.length === 0 ? (
           <div>저장한 뉴스가 없습니다.</div>
         ) : (
           filteredNews.map((newsItem) => (

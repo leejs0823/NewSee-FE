@@ -1,33 +1,38 @@
 import { create } from "zustand";
-import type { NewsListItemType } from "@/types/newsList";
+import type { BookmarkItemType } from "@/types/newsList";
+import { immer } from "zustand/middleware/immer";
 
 type BookmarkStore = {
-  bookmarkIds: number[];
-  bookmarkItems: NewsListItemType[];
-  toggleBookmark: (id: number) => void;
-  isBookmarked: (id: number) => boolean;
-  setBookmarks: (items: NewsListItemType[]) => void;
+  bookmarkItems: BookmarkItemType[];
+  isBookmarked: (newsId: number) => boolean;
+  getSaveNewsId: (newsId: number) => number | undefined;
+  addBookmark: (item: BookmarkItemType) => void;
+  removeBookmark: (newsId: number) => void;
+  setBookmarks: (items: BookmarkItemType[]) => void;
   reset: () => void;
 };
 
-export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
-  bookmarkIds: [],
-  bookmarkItems: [],
-  toggleBookmark: (id: number) => {
-    const { bookmarkIds } = get();
-    const exists = bookmarkIds.includes(id);
-    set({
-      bookmarkIds: exists
-        ? bookmarkIds.filter((i) => i !== id)
-        : [...bookmarkIds, id],
-    });
-  },
-  isBookmarked: (id) => get().bookmarkIds.includes(id),
-  setBookmarks: (items) => {
-    set({
-      bookmarkIds: items.map((item) => item.newsId),
-      bookmarkItems: items,
-    });
-  },
-  reset: () => set({ bookmarkIds: [], bookmarkItems: [] }),
-}));
+export const useBookmarkStore = create<BookmarkStore>()(
+  immer((set, get) => ({
+    bookmarkItems: [],
+    isBookmarked: (newsId) =>
+      get().bookmarkItems.some((item) => item.newsId === newsId),
+    getSaveNewsId: (newsId) =>
+      get().bookmarkItems.find((item) => item.newsId === newsId)?.savedNewsId,
+    addBookmark: (item) =>
+      set((state) => {
+        state.bookmarkItems.push(item);
+      }),
+    removeBookmark: (savedNewsId) =>
+      set((state) => {
+        const index = state.bookmarkItems.findIndex(
+          (item) => item.savedNewsId === savedNewsId
+        );
+        if (index !== -1) {
+          state.bookmarkItems.splice(index, 1);
+        }
+      }),
+    setBookmarks: (items) => set({ bookmarkItems: items }),
+    reset: () => set({ bookmarkItems: [] }),
+  }))
+);

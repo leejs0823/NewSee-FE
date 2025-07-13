@@ -10,9 +10,14 @@ export const useNewsList = () => {
   return useQuery<NewsListItemType[], Error>({
     queryKey: ["newsList"],
     queryFn: async () => {
-      const data = await withDelayedGlobalLoading(getNewsList());
-      setNewsList(data);
-      return data;
+      try {
+        const data = await withDelayedGlobalLoading(getNewsList());
+        setNewsList(data);
+        return data;
+      } catch (error) {
+        setNewsList([]);
+        throw error;
+      }
     },
     staleTime: 1000 * 60 * 5,
     refetchOnMount: false,

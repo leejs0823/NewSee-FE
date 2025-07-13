@@ -15,13 +15,13 @@ export const Image = styled.img`
   width: 80px;
   height: 80px;
   object-fit: cover;
+  aspect-ratio: 1 / 1;
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
   width: 100%;
 `;
 
@@ -44,6 +44,12 @@ export const HeadDescriptionText = styled.div`
 export const Title = styled.h3`
   ${({ theme }) => theme.fonts.Head3}
   color: ${({ theme }) => theme.colors.text.primary};
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
 `;
 
 export const Description = styled.p`

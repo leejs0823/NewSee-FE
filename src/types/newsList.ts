@@ -4,9 +4,11 @@ export type NewsListItemType = {
   newsId: number;
   title: string;
   category: NewsCategoryType;
-  content: string;
+  transformedContent: string;
   source: string;
   time: Date;
   imageUrl: string;
   isBookmarked?: boolean;
 };
+
+export type BookmarkItemType = NewsListItemType & { savedNewsId: number };

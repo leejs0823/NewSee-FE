@@ -16,8 +16,10 @@ export const NewsItem = ({ news }: NewsItemProps) => {
     e.currentTarget.src = defaultImage;
   };
 
-  const bookmarkIds = useBookmarkStore((state) => state.bookmarkIds);
-  const isBookmarked = bookmarkIds.includes(news.newsId);
+  const bookmarkItems = useBookmarkStore((state) => state.bookmarkItems);
+  const isBookmarked = bookmarkItems.some(
+    (item) => item.newsId === news.newsId
+  );
 
   const handleClick = () => {
     navigate(`/news/${news.newsId}`);
@@ -29,6 +31,8 @@ export const NewsItem = ({ news }: NewsItemProps) => {
         src={news.imageUrl}
         alt={news.title}
         onError={handleImageError}
+        width={80}
+        height={80}
       />
       <S.ContentContainer>
         <S.HeadDescription>
@@ -39,7 +43,7 @@ export const NewsItem = ({ news }: NewsItemProps) => {
           </S.HeadDescriptionText>
           {isBookmarked !== undefined && (
             <BookmarkButton
-              newsId={news.newsId}
+              news={news}
               onClick={(e) => {
                 e.stopPropagation();
               }}
@@ -47,7 +51,7 @@ export const NewsItem = ({ news }: NewsItemProps) => {
           )}
         </S.HeadDescription>
         <S.Title>{news.title}</S.Title>
-        <S.Description>{news.content}</S.Description>
+        <S.Description>{news.transformedContent}</S.Description>
       </S.ContentContainer>
     </S.Container>
   );
