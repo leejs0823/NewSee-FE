@@ -33,21 +33,9 @@ const ModalRoot = () => {
       case "loading":
         return <LoadingModal message={props.message} />;
       case "custom":
-        if (typeof props.children === "function") {
-          try {
-            return props.children({ closeModal });
-          } catch (e) {
-            console.error("Custom modal children 함수 실행 중 오류:", e);
-            return null;
-          }
-        } else if (props.children && typeof props.children === "object") {
-          return props.children;
-        } else {
-          console.warn(
-            "custom 모달에서 children이 정의되지 않았거나 잘못된 타입입니다."
-          );
-          return null;
-        }
+        return typeof props.children === "function"
+          ? props.children({ closeModal })
+          : props.children;
       default:
         return null;
     }

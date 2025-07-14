@@ -11,7 +11,7 @@ interface LevelSelectModalProps {
   closeModal: () => void;
 }
 
-const LevelSelectModal = ({ closeModal }: LevelSelectModalProps) => {
+export const LevelSelectModal = ({ closeModal }: LevelSelectModalProps) => {
   const [selectedLevel, setSelectedLevel] = useState<LevelType>(LevelType.HIGH);
   const { mutate: selectLevel } = usePostLevel(); // 레벨 설정 API 훅
   const theme = useTheme();
@@ -80,5 +80,3 @@ const LevelSelectModal = ({ closeModal }: LevelSelectModalProps) => {
     </S.Container>
   );
 };
-
-export default LevelSelectModal;

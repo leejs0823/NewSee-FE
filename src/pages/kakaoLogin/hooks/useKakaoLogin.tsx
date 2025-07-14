@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginWithKakaoToken, getKakaoAccessToken } from "@/api/user/user";
 import { useUserStore } from "@/stores/user";
 import { useModal } from "@/hooks/common/useModal";
-import LevelSelectModal from "@/components/common/Modal/LevelSelectModal";
-import { withDelayedGlobalLoading } from "@/utils/delayedGlobalLoading";
+import { LevelSelectModal } from "@/components/common/Modal/LevelSelectModal";
 
 export const useKakaoLogin = (code: string | null) => {
   const navigate = useNavigate();
@@ -19,25 +18,17 @@ export const useKakaoLogin = (code: string | null) => {
         const userInfo = await loginWithKakaoToken(kakaoAccessToken);
         useUserStore.getState().login(userInfo);
         // localStorage.setItem("accessToken", userInfo.accessToken);
-
-        console.log(userInfo.new, "하이하이");
+        navigate("/");
         if (userInfo.new) {
           openModal("custom", {
-            children: () => (
-              <LevelSelectModal
-                closeModal={() => {
-                  closeModal();
-                }}
-              />
-            ),
+            children: () => <LevelSelectModal closeModal={closeModal} />,
           });
         }
-        navigate("/");
       } catch (error) {
         console.error("카카오 로그인 실패:", error);
       }
     };
 
-    withDelayedGlobalLoading(login());
+    login();
   }, [code]);
 };
