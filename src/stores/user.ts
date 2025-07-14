@@ -29,6 +29,7 @@ interface UserState {
     savedWordCount: number;
   }) => void;
   setAccessToken: (accessToken: string) => void;
+  setRefreshToken: (refreshToken: string) => void;
   setLevel: (level: LevelType) => void;
 }
 
@@ -73,6 +74,7 @@ export const useUserStore = create<UserState>()(
         useBookmarkStore.getState().reset();
       },
       setAccessToken: (accessToken: string) => set({ accessToken }),
+      setRefreshToken: (refreshToken: string) => set({ refreshToken }),
       setLevel: (level: LevelType) => set({ level }),
       setProfile: ({ name, profileImage, level, joinDate, savedWordCount }) =>
         set({

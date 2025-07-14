@@ -80,9 +80,11 @@ export const CategoryList = styled.div`
 
 export const EmptyMessage = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 30px;
   align-items: center;
   justify-content: center;
+  ${({ theme }) => theme.fonts.Body2B};
+  color: ${({ theme }) => theme.colors.text.disabled};
 `;
 
 export const WordCardList = styled.div`

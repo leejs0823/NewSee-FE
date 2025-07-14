@@ -13,6 +13,7 @@ export const TitleContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const Title = styled.div`

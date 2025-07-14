@@ -40,6 +40,15 @@ export const BodySection = styled.div`
   padding-bottom: 50px;
 `;
 
+export const EmptyMessage = styled.div`
+  display: flex;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.fonts.Body2B};
+  color: ${({ theme }) => theme.colors.text.disabled};
+`;
+
 export const HeadText = styled.h1`
   ${({ theme }) => theme.fonts.Head2}
 `;

@@ -26,8 +26,8 @@ export const Home = () => {
       },
       onError: () => {
         openModal("check", {
-          title: "서버 오류입니다",
-          message: "다시 요청하거나 개발자에게 문의하세요!",
+          title: "AI 서버 운영 시간이 아닙니다",
+          message: "개발자에게 문의하세요!",
           onClose: closeModal,
         });
       },

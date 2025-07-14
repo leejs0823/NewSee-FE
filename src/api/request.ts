@@ -102,10 +102,9 @@ export const applyInterceptors = (instance: AxiosInstance): void => {
       const originalRequest = error.config;
 
       if (
-        error.response?.status === 401 ||
-        (error.response?.status === 403 &&
-          !originalRequest._retry &&
-          useUserStore.getState().refreshToken)
+        (error.response?.status === 401 || error.response?.status === 403) &&
+        !originalRequest._retry &&
+        useUserStore.getState().refreshToken
       ) {
         originalRequest._retry = true;
 
@@ -113,7 +112,7 @@ export const applyInterceptors = (instance: AxiosInstance): void => {
           const refreshToken = useUserStore.getState().refreshToken;
 
           const res = await axios.post(
-            "/api/user/refresh",
+            `${import.meta.env.VITE_BASE_URL}/api/user/refresh`,
             {},
             {
               headers: {

@@ -49,9 +49,11 @@ export const News = () => {
         </S.CategoryList>
       </S.HeaderSection>
       <S.BodySection>
-        {filteredNews.map((newsItem) => (
-          <NewsItem news={newsItem} />
-        ))}
+        {filteredNews.length === 0 ? (
+          <S.EmptyMessage>해당 카테고리의 뉴스가 없습니다.</S.EmptyMessage>
+        ) : (
+          filteredNews.map((newsItem) => <NewsItem news={newsItem} />)
+        )}
       </S.BodySection>
     </S.Container>
   );

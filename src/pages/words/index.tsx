@@ -19,7 +19,7 @@ export const Words = () => {
   const [selectedTag, setSelectedTag] = useState("전체");
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const { isLoading } = useMyWords();
+  useMyWords();
   const words = useWordsStore((state) => state.words);
   const wordCount = useWordsStore((state) => state.wordCount);
   const level = useUserStore((state) => state.level);
@@ -33,8 +33,6 @@ export const Words = () => {
       return matchesCategory && matchesSearch;
     });
   }, [words, selectedTag, searchKeyword]);
-
-  if (isLoading) return <div>불러오는 중...</div>;
 
   const handleWordClick = (index: number) => {
     setSelectedIndex(index);
