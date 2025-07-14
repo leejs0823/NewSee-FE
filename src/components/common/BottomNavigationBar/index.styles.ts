@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BottomNav = styled.div`
   max-width: 430px;
   width: 100%;
-  height: calc(56px + env(safe-area-inset-bottom, 0px));
+  height: calc(68px + env(safe-area-inset-bottom, 0px));
 
   background-color: white;
   box-shadow: 0 -2px 8px rgba(79, 70, 229, 0.1);

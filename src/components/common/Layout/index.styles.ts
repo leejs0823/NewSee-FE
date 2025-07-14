@@ -30,7 +30,7 @@ export const AppMain = styled.main<AppMainProps>`
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding-bottom: ${({ noHeader }) => (noHeader ? "0" : "56px")};
+  padding-bottom: ${({ noHeader }) => (noHeader ? "0" : "68px")};
   padding-top: 68px;
   width: 100%;
   display: flex;
