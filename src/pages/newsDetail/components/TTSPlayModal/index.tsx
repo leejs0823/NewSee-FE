@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import * as S from "./index.styles";
 import ArrowIcon from "@assets/icons/mypage/rightArrow.svg?react";
+import StopIcon from "@assets/icons/news/stop.svg?react";
+import InterruptIcon from "@assets/icons/news/interrupt.svg?react";
 
 interface TTSPlayModalProps {
   content: string;
@@ -74,12 +76,14 @@ export const TTSPlayModal = ({
 
       <S.Box>
         <S.ButtonGroup>
-          <S.Button onClick={handleStop}>⏹ 처음부터</S.Button>
+          <S.Button onClick={handleStop}>
+            <StopIcon width={16} height={16} /> 처음부터
+          </S.Button>
           <S.PlayButton onClick={handlePlay} $isPlaying={isPlaying}>
             {isPaused ? "이어 재생" : isPlaying ? "재생 중" : "재생하기"}
           </S.PlayButton>
           <S.Button onClick={handlePause} disabled={!isPlaying}>
-            ⏸ 일시정지
+            <InterruptIcon width={16} height={16} /> 일시정지
           </S.Button>
         </S.ButtonGroup>
 

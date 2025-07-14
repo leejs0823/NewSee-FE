@@ -40,6 +40,8 @@ export const ButtonGroup = styled.div`
 export const Button = styled.button`
   padding: 6px 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   ${({ theme }) => theme.fonts.Button2};
   color: ${({ theme }) => theme.colors.text.primary};
 `;
