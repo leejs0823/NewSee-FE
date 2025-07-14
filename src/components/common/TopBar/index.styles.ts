@@ -11,6 +11,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 430px;
   top: 0;
+  z-index: 10000;
   background-color: ${({ theme }) => theme.colors.bg.white};
 `;
 

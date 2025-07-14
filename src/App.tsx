@@ -10,9 +10,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
+      <ModalRoot />
       <GlobalStyle />
       <GlobalLoading />
-      <ModalRoot />
     </ThemeProvider>
   );
 }

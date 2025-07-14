@@ -19,12 +19,20 @@ export const useKakaoLogin = (code: string | null) => {
         const userInfo = await loginWithKakaoToken(kakaoAccessToken);
         useUserStore.getState().login(userInfo);
         // localStorage.setItem("accessToken", userInfo.accessToken);
-        navigate("/");
+
+        console.log(userInfo.new, "하이하이");
         if (userInfo.new) {
           openModal("custom", {
-            children: () => <LevelSelectModal closeModal={closeModal} />,
+            children: () => (
+              <LevelSelectModal
+                closeModal={() => {
+                  closeModal();
+                }}
+              />
+            ),
           });
         }
+        navigate("/");
       } catch (error) {
         console.error("카카오 로그인 실패:", error);
       }

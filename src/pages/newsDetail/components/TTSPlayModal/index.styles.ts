@@ -55,12 +55,10 @@ export const PlayButton = styled.button<PlayButtonProps>`
   padding: 6px 10px;
   border: 2px solid ${({ theme }) => theme.colors.border.blue};
   ${({ theme }) => theme.fonts.Button2};
-  background-color: ${({ theme }) => theme.colors.bg.blue};
+  background-color: ${({ $isPlaying, theme }) =>
+    $isPlaying ? theme.colors.bg.blueBg : theme.colors.bg.blue};
   color: ${({ $isPlaying, theme }) =>
     $isPlaying ? theme.colors.text.blue : theme.colors.text.white};
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.bg.blueBg};
-  }
 `;
 
 export const Label = styled.label`

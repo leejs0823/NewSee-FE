@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  z-index: 10000000;
 `;
 
 export const HeadContainer = styled.div`
