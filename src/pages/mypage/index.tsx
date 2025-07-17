@@ -8,11 +8,11 @@ import HelpIcon from "@assets/icons/common/help.svg?react";
 export const Mypage = () => {
   const navigate = useNavigate();
   const handleGoToLevelSetting = () => {
-    navigate("/levelSetting");
+    navigate("/mypage/levelSetting");
   };
 
   const handleGoToBookmark = () => {
-    navigate("/bookmark");
+    navigate("/mypage/bookmark");
   };
 
   const handleGoToHelp = () => {

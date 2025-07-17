@@ -67,3 +67,19 @@ export const postNewsUrl = async (url: string): Promise<number> => {
 
   return response.result.newsId;
 };
+
+export const searchNews = async (
+  keyword: string
+): Promise<NewsListItemType[]> => {
+  const response = await sendRequest<NewsListItemType[]>(
+    newsInstance,
+    "GET",
+    `/search?keyword=${keyword}`
+  );
+
+  if (!response.success) {
+    throw new Error(response.message || "뉴스 디테일 불러오기 실패");
+  }
+
+  return response.result;
+};

@@ -31,6 +31,7 @@ interface UserState {
   setAccessToken: (accessToken: string) => void;
   setRefreshToken: (refreshToken: string) => void;
   setLevel: (level: LevelType) => void;
+  setName: (name: string) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -84,6 +85,7 @@ export const useUserStore = create<UserState>()(
           joinDate: new Date(joinDate),
           savedWordCount,
         }),
+      setName: (name: string) => set({ name }),
     }),
     {
       name: "auth",

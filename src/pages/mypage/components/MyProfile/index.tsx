@@ -5,8 +5,10 @@ import ProfileDefaultImage from "@assets/images/profileImage.png";
 import { formatDateToDot } from "@/utils/format";
 import { useMyProfile } from "@/api/user/hooks/useMyProfile";
 import { useWordsStore } from "@/stores/words";
+import { useNavigate } from "react-router-dom";
 
 export const MyProfile = () => {
+  const navigate = useNavigate();
   useMyProfile();
   const name = useUserStore((state) => state.name);
   const profileImage = useUserStore((state) => state.profileImage);
@@ -34,7 +36,9 @@ export const MyProfile = () => {
           <S.WordLabel>저장된 단어</S.WordLabel>
         </S.WordInfo>
       </S.Profile>
-      <S.EditButton>프로필 수정</S.EditButton>
+      <S.EditButton onClick={() => navigate("profileEdit")}>
+        프로필 수정
+      </S.EditButton>
     </S.ProfileCard>
   );
 };

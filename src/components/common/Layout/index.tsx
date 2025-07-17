@@ -10,8 +10,9 @@ export default function Layout() {
   const noHeaderPaths = [
     "/login",
     "/news/:newsId",
-    "/bookmark",
-    "/levelSetting",
+    "/mypage/bookmark",
+    "/mypage/levelSetting",
+    "/mypage/profileEdit",
   ];
 
   const isHeaderVisible = !noHeaderPaths.some((path) =>

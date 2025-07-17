@@ -67,3 +67,11 @@ export const CategoryList = styled.div`
     display: none; /* Chrome, Safari, Opera */
   }
 `;
+
+export const SearchResultText = styled.div`
+  padding-left: 10px;
+  display: flex;
+  width: 100%;
+  ${({ theme }) => theme.fonts.Body2B};
+  color: ${({ theme }) => theme.colors.text.disabled};
+`;

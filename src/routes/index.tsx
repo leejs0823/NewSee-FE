@@ -10,6 +10,7 @@ import {
   NewsDetail,
   Bookmark,
   LevelSetting,
+  ProfileEdit,
 } from "@pages/index";
 import { ProtectedRoute } from "@/components/common/ProtectedRoute";
 
@@ -37,31 +38,23 @@ export const router = createBrowserRouter([
             path: "",
             element: <Mypage />,
           },
+          {
+            path: "bookmark",
+            element: <Bookmark />,
+          },
+          {
+            path: "levelSetting",
+            element: <LevelSetting />,
+          },
+          {
+            path: "profileEdit",
+            element: <ProfileEdit />,
+          },
         ],
       },
       { path: "news", element: <News /> },
       { path: "news/:newsId", element: <NewsDetail /> },
-      {
-        path: "bookmark",
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "",
-            element: <Bookmark />,
-          },
-        ],
-      },
       { path: "login", element: <Login /> },
-      {
-        path: "levelSetting",
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "",
-            element: <LevelSetting />,
-          },
-        ],
-      },
       { path: "login/oauth2/code/kakao", element: <KakaoLogin /> },
     ],
   },

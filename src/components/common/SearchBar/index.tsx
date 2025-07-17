@@ -2,14 +2,17 @@ import * as S from "./index.styles";
 import SearchIcon from "@assets/icons/common/search.svg?react";
 import useInput from "@/hooks/common/useInput";
 import { useCallback } from "react";
+import CircleDeleteIcon from "@assets/icons/common/circleDelete.svg?react";
 
 interface SearchBarProps {
   onSearch: (keyword: string) => void;
+  onReset?: () => void;
   placeholder?: string;
 }
 
 export const SearchBar = ({
   onSearch,
+  onReset,
   placeholder = "검색어를 입력하세요",
 }: SearchBarProps) => {
   const { value, onChange, reset } = useInput();
@@ -18,13 +21,21 @@ export const SearchBar = ({
     const trimmed = value.trim();
     if (!value.trim()) return;
     onSearch(trimmed);
-    console.log("검색어:", value);
   }, [value, reset]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
+  };
+
+  const handleDelete = () => {
+    const fakeEvent = {
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>;
+    reset();
+    onChange(fakeEvent);
+    onReset?.();
   };
 
   return (
@@ -38,6 +49,12 @@ export const SearchBar = ({
           onKeyDown={handleKeyDown}
         />
       </S.InputContainer>
+      <CircleDeleteIcon
+        onClick={handleDelete}
+        style={{ cursor: "pointer" }}
+        width={20}
+        height={20}
+      />
     </S.Container>
   );
 };

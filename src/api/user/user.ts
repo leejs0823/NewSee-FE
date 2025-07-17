@@ -23,6 +23,15 @@ export interface ProfileResult {
   savedWordCount: number;
 }
 
+export interface PatchProfileResult {
+  userId: number;
+  email: string;
+  name: string;
+  provider: string;
+  profileImage: string;
+  level: LevelType;
+}
+
 export const getKakaoAccessToken = async (code: string) => {
   const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
   const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
@@ -71,4 +80,21 @@ export const fetchMyProfile = async () => {
   }
 
   return response.result;
+};
+
+export const patchMyProfile = async (name: string) => {
+  const response = await sendRequest<PatchProfileResult>(
+    userInstance,
+    "PATCH",
+    "/profile",
+    {
+      name,
+    }
+  );
+
+  if (!response.success) {
+    throw new Error(response.message || "프로필 조회 실패");
+  }
+
+  return response.result.name;
 };

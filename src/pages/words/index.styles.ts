@@ -42,6 +42,14 @@ export const InfoContainer = styled.div`
   gap: 16px;
 `;
 
+export const SearchResultText = styled.div`
+  padding-left: 10px;
+  display: flex;
+  width: 100%;
+  ${({ theme }) => theme.fonts.Body2B};
+  color: ${({ theme }) => theme.colors.text.disabled};
+`;
+
 export const InfoBox = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border.divider};
   padding: 8px;

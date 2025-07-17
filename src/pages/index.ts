@@ -7,3 +7,4 @@ export * from "./kakaoLogin";
 export * from "./newsDetail";
 export * from "./bookmark";
 export * from "./levelSetting";
+export * from "./profileEdit";

@@ -6,42 +6,41 @@ import { SearchBar } from "@/components/common/SearchBar";
 import WordsIcon from "@assets/icons/common/words.svg?react";
 import { useTheme } from "styled-components";
 import { NEWS_CATEGORY_TAGS } from "@/types/category";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { useUserStore } from "@/stores/user";
 import { LevelTypeToKorean } from "@/utils/level";
 import { WordCardModal } from "@/components/common/Modal/WordCardModal";
+import { useSearchWords } from "@/api/words/hooks/useSearchWords";
+import type { WordType } from "@/types/word";
+import useSearchHandler from "@/hooks/common/useSearchHandler";
 
 export const Words = () => {
   const theme = useTheme();
+  const { mutateAsync: searchWordsMutate } = useSearchWords();
+
   const [showWordModal, setShowWordModal] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedTag, setSelectedTag] = useState("전체");
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const { isSearching, handleSearch, handleReset, searchResult } =
+    useSearchHandler<WordType>({ mutateFn: searchWordsMutate });
 
   useMyWords();
+
   const words = useWordsStore((state) => state.words);
   const wordCount = useWordsStore((state) => state.wordCount);
   const level = useUserStore((state) => state.level);
 
-  const filteredWords = useMemo(() => {
-    return words.filter((word) => {
-      const matchesCategory =
-        selectedTag === "전체" || word.category === selectedTag;
-      const matchesSearch =
-        searchKeyword.trim() === "" || word.term.includes(searchKeyword.trim());
-      return matchesCategory && matchesSearch;
-    });
-  }, [words, selectedTag, searchKeyword]);
+  const baseList = isSearching ? searchResult || [] : words;
+
+  const filteredWords: WordType[] =
+    selectedTag === "전체"
+      ? baseList
+      : baseList.filter((item) => item.category === selectedTag);
 
   const handleWordClick = (index: number) => {
     setSelectedIndex(index);
     setShowWordModal(true);
-  };
-
-  const handleSearch = (keyword: string) => {
-    setSearchKeyword(keyword);
-    console.log(keyword, ": 검색어");
   };
 
   return (
@@ -61,8 +60,16 @@ export const Words = () => {
             <S.Caption>총 단어</S.Caption>
           </S.InfoBox>
         </S.InfoContainer>
-        <SearchBar placeholder="단어를 검색하세요" onSearch={handleSearch} />
-
+        <SearchBar
+          placeholder="단어를 검색하세요"
+          onSearch={handleSearch}
+          onReset={handleReset}
+        />
+        {isSearching && (
+          <S.SearchResultText>
+            총 {baseList.length}개의 단어가 검색되었습니다.
+          </S.SearchResultText>
+        )}
         <S.CategoryList>
           {["전체", ...NEWS_CATEGORY_TAGS].map((tag, index) => (
             <CategoryTag
